@@ -1,0 +1,121 @@
+/* VCard styles for Mr C3PO */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;padding:0;font-family:Segoe UI, Roboto, -apple-system, "Helvetica Neue", Arial; background:linear-gradient(180deg,#071226 0%, #0b1330 100%);color:#fff}
+
+.vcard{max-width:380px;margin:6vh auto;padding:28px 22px;background:linear-gradient(180deg, rgba(255,247,200,0.03), rgba(255,247,200,0.01));border-radius:14px;box-shadow:0 8px 30px rgba(2,6,23,0.7);text-align:center;border:1px solid rgba(255,215,0,0.06)}
+
+.avatar{width:150px;height:150px;object-fit:cover;border-radius:50%;border:6px solid rgba(255,215,0,0.95);box-shadow:0 6px 20px rgba(0,0,0,0.5);display:inline-block}
+
+.vcard h1{margin:14px 0 4px;font-size:1.4rem;color:#f6e7b0;letter-spacing:0.5px}
+.vcard h3{margin:0 0 18px;font-weight:500;color:#e9d89a;font-size:0.95rem;opacity:0.95}
+
+.contact{margin-top:8px;text-align:left}
+.contact p{margin:8px 0;padding:6px 10px;border-radius:8px;color:#f1e7b8;display:flex;align-items:center;gap:10px}
+.contact p a{color:#f7e3a3;text-decoration:none}
+.contact p a:hover{text-decoration:underline}
+
+.contact .socials{display:flex;justify-content:center;gap:14px;padding:8px 0}
+.contact .socials a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.02);color:#f3df93;text-decoration:none;transition:transform .12s ease, background .12s ease}
+.contact .socials a:hover{transform:translateY(-3px);background:rgba(255,215,0,0.08)}
+
+/* Icon sizing */
+.fas, .fab{width:18px;height:18px}
+
+/* Accessibility: focus styles */
+a:focus{outline:3px solid rgba(255,215,0,0.15);outline-offset:2px}
+
+/* Responsive tweaks */
+@media (max-width:420px){
+  .vcard{margin:4vh 12px;padding:18px}
+  .avatar{width:110px;height:110px;border-width:5px}
+  .vcard h1{font-size:1.15rem}
+}
+
+/* Starfield canvas and nebula overlay */
+#starfield{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block}
+.vcard{position:relative;z-index:2}
+
+/* Nebula / gas cloud soft overlay */
+body::before{content:"";position:fixed;inset:-10% -20% -10% -20%;
+  background:
+    radial-gradient(30% 20% at 10% 20%, rgba(138,43,226,0.18), transparent 15%),
+    radial-gradient(40% 30% at 80% 70%, rgba(72,61,139,0.12), transparent 20%),
+    linear-gradient(90deg, rgba(12,18,44,0.6), rgba(6,10,22,0.45));
+  mix-blend-mode:screen;filter:blur(28px) saturate(1.08);z-index:1;pointer-events:none;opacity:0.95;animation:nebMove 30s linear infinite}
+
+@keyframes nebMove{0%{transform:translateY(0) scale(1)}50%{transform:translateY(-6%) scale(1.03)}100%{transform:translateY(0) scale(1)}}
+
+/* slightly raise contact and headings for legibility */
+.vcard h1, .vcard h3, .contact{position:relative;z-index:3}
+
+/* Ship (inspiré du Faucon Millenium) styling and flight */
+/* Ship image styling and flight */
+/* smaller ship sizing and softer bob */
+#ship{position:fixed;left:-18vw;top:var(--flight-top,12%);width:10vw;max-width:140px;z-index:1;pointer-events:none;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.6));opacity:0.98}
+#ship img, #ship-img{width:100%;height:auto;display:block;transform-origin:center center}
+
+/* gentle local bobbing to make the ship feel alive (reduced amplitude) */
+#ship-img{animation:ship-bob 3.8s ease-in-out infinite}
+@keyframes ship-bob{
+  0%{transform:translateY(0) rotate(-0.8deg)}
+  25%{transform:translateY(-3px) rotate(-0.5deg)}
+  50%{transform:translateY(0) rotate(0.5deg)}
+  75%{transform:translateY(2px) rotate(0.15deg)}
+  100%{transform:translateY(0) rotate(-0.8deg)}
+}
+
+/* flight animation — move left -> right with slight tilt */
+.fly{animation:fly var(--flight-dur,14s) linear infinite}
+@keyframes fly{
+  0%{transform:translateX(-110vw) translateY(0) rotate(-6deg);opacity:0}
+  6%{opacity:1}
+  50%{transform:translateX(110vw) translateY(6vh) rotate(4deg)}
+  94%{opacity:1}
+ 100%{transform:translateX(330vw) translateY(0) rotate(12deg);opacity:0}
+}
+
+/* reduce motion preference */
+@media (prefers-reduced-motion: reduce){
+  .fly{animation: none !important; opacity:0.9; left:5%}
+  #ship-img{animation:none !important; transform:none}
+}
+
+/* Saucer styling and glow */
+.saucer{width:100%;display:block}
+.saucer svg{width:100%;height:auto;display:block}
+.saucer-glow{position:absolute;left:50%;transform:translateX(-50%);bottom:-6px;width:70%;height:22px;border-radius:50%;background:radial-gradient(ellipse at center, rgba(120,200,255,0.16) 0%, rgba(120,200,255,0.06) 40%, rgba(120,200,255,0) 100%);filter:blur(6px);opacity:0.9}
+
+@keyframes saucer-glow-pulse{
+  0%{transform:translateX(-50%) scaleX(0.96);opacity:0.82}
+  50%{transform:translateX(-50%) scaleX(1.06);opacity:1}
+  100%{transform:translateX(-50%) scaleX(0.96);opacity:0.82}
+}
+
+/* make saucer smaller and keep subtle hover/bob */
+#ship{position:fixed;left:-18vw;top:var(--flight-top,12%);width:9vw;max-width:140px;z-index:1;pointer-events:none;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.6));opacity:0.98}
+#ship .saucer{position:relative}
+#ship .saucer svg{display:block}
+#ship .saucer-glow{animation:saucer-glow-pulse 2.8s ease-in-out infinite}
+
+/* gentle zig-zag on the saucer svg to give a hovering feel */
+#ship .saucer svg{animation:saucer-zigzag 1.6s ease-in-out infinite}
+@keyframes saucer-zigzag{
+  0%{transform:translateY(0) rotate(-0.6deg)}
+  20%{transform:translateY(-12px) rotate(-0.35deg)}
+  40%{transform:translateY(12px) rotate(0.35deg)}
+  60%{transform:translateY(-10px) rotate(-0.2deg)}
+  80%{transform:translateY(8px) rotate(0.12deg)}
+  100%{transform:translateY(0) rotate(-0.6deg)}
+}
+
+@media (prefers-reduced-motion: reduce){
+  #ship .saucer svg{animation:none !important}
+  .saucer-glow{animation:none !important;opacity:0.9}
+}
+
+/* Fictitious QR Code styling */
+.qrcode-container{margin-top:16px;display:flex;justify-content:center}
+.qrcode{border:3px solid rgba(255,215,0,0.2);border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,0.3);background:#fff;padding:4px}
+@media (max-width:420px){
+  .qrcode{width:90px;height:90px}
+}
