@@ -25,7 +25,6 @@ html,body{height:100%;margin:0;padding:0;font-family:Segoe UI, Roboto, -apple-sy
 a:focus{outline:3px solid rgba(255,215,0,0.15);outline-offset:2px}
 
 /* Responsive tweaks */
-/* Responsive tweaks */
 @media (max-width:420px){
   .vcard{
     margin:4vh 12px;
@@ -133,3 +132,4 @@ body::before{content:"";position:fixed;inset:-10% -20% -10% -20%;
 @media (max-width:420px){
   .qrcode{width:90px;height:90px}
 }
+
